@@ -27,8 +27,7 @@ namespace EventStoreWinServiceWrapper
 
             foreach (ServiceInstance instance in _instances)
             {
-                var address = string.IsNullOrEmpty(instance.Address) ? _address : IPAddress.Parse(instance.Address);
-                var info = processMapper.GetProcessStartInfo(file, address, instance);
+                var info = processMapper.GetProcessStartInfo(file, _address, instance);
                 var process = Process.Start(info);
                 process.Exited += (sender, args) => Stop();
                 _processes.Add(process);

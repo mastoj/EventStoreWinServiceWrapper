@@ -38,5 +38,12 @@ namespace EventStoreWinServiceWrapper
             get { return (string)this["address"]; }
             set { this["address"] = value; }
         }
+
+        [ConfigurationProperty("prefixes", IsRequired = false)]
+        public string Prefixes
+        {
+            get { return (string)this["prefixes"]; }
+            set { this["prefixes"] = value; }
+        }
     }
 }
