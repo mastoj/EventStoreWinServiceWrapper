@@ -1,4 +1,9 @@
-$exePath = '.\EventStoreWinServiceWrapper.exe'
+function Get-ScriptDirectory {
+    $Invocation = (Get-Variable MyInvocation -Scope 1).Value
+    Split-Path $Invocation.MyCommand.Path
+}
+$scriptDirectory = Get-ScriptDirectory
+$exePath = "$scriptDirectory\EventStoreWinServiceWrapper.exe"
 
 $service = get-service | Where {$_.Name -eq "EventStoreServiceWrapper"}
 if($service -ne $null) {

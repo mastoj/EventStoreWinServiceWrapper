@@ -32,7 +32,7 @@ namespace EventStoreWinServiceWrapper
             set { this["dbPath"] = value; }
         }
 
-        [ConfigurationProperty("address", IsRequired = true)]
+        [ConfigurationProperty("address", IsRequired = false)]
         public string Address
         {
             get { return (string)this["address"]; }
