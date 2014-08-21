@@ -11,20 +11,6 @@ namespace EventStoreWinServiceWrapper
             set { this["name"] = value; }
         }
 
-        [ConfigurationProperty("tcpPort", IsRequired = true)]
-        public int TcpPort
-        {
-            get { return (int)this["tcpPort"]; }
-            set { this["tcpPort"] = value; }
-        }
-
-        [ConfigurationProperty("httpPort", IsRequired = true)]
-        public int HttpPort
-        {
-            get { return (int)this["httpPort"]; }
-            set { this["httpPort"] = value; }
-        }
-
         [ConfigurationProperty("dbPath", IsRequired = true)]
         public string DbPath
         {
@@ -32,18 +18,18 @@ namespace EventStoreWinServiceWrapper
             set { this["dbPath"] = value; }
         }
 
-        [ConfigurationProperty("address", IsRequired = false)]
-        public string Address
+        [ConfigurationProperty("logPath", IsRequired = false, DefaultValue = @"..\Logs")]
+        public string LogPath
         {
-            get { return (string)this["address"]; }
-            set { this["address"] = value; }
+            get { return (string)this["logPath"]; }
+            set { this["logPath"] = value; }
         }
 
-        [ConfigurationProperty("prefixes", IsRequired = false)]
-        public string Prefixes
+        [ConfigurationProperty("addresses", IsRequired = false)]
+        public string Addresses
         {
-            get { return (string)this["prefixes"]; }
-            set { this["prefixes"] = value; }
+            get { return (string)this["addresses"]; }
+            set { this["addresses"] = value; }
         }
     }
 }

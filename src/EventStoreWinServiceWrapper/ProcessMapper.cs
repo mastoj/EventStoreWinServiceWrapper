@@ -7,29 +7,25 @@ namespace EventStoreWinServiceWrapper
 {
     public class ProcessMapper
     {
-        public ProcessStartInfo GetProcessStartInfo(string file, IPAddress address, ServiceInstance instance)
+        public ProcessStartInfo GetProcessStartInfo(string executable, ServiceInstance instance)
         {
-            var arguments = GetProcessArguments(address, instance);
+            var arguments = GetProcessArguments(instance);
 
-            return new ProcessStartInfo(file, arguments)
+            return new ProcessStartInfo(executable, arguments)
             {
                 UseShellExecute = false
             };
         }
 
-        private string GetProcessArguments(IPAddress address, ServiceInstance instance)
+        private string GetProcessArguments(ServiceInstance instance)
         {
-            address = string.IsNullOrEmpty(instance.Address) ? address : IPAddress.Parse(instance.Address);
-            if (address == null) throw new ArgumentNullException("address");
             var sb = new StringBuilder();
-            sb.AppendFormat("--ip {0} ", address);
-            sb.AppendFormat("--tcp-port {0} ", instance.TcpPort);
-            sb.AppendFormat("--http-port {0} ", instance.HttpPort);
+            sb.AppendFormat("--log {0} ", instance.LogPath);
             sb.AppendFormat("--db {0} ", instance.DbPath);
 
-            if (!string.IsNullOrWhiteSpace(instance.Prefixes))
+            if (!string.IsNullOrWhiteSpace(instance.Addresses))
             {
-                sb.AppendFormat("--prefixes {0} ", instance.Prefixes);
+                sb.AppendFormat("--httpprefixes \"{0}\"", instance.Addresses);
             }
             return sb.ToString();
         }

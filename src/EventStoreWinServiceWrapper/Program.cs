@@ -12,7 +12,6 @@ namespace EventStoreWinServiceWrapper
         public static void Main()
         {
             var configuration = (EventStoreServiceConfiguration)ConfigurationManager.GetSection("eventStore");
-            var address = GetIPAddress();
 
             HostFactory.Run(x =>
             {
@@ -23,7 +22,7 @@ namespace EventStoreWinServiceWrapper
 
                 x.Service<ServiceWrapper>(s =>
                 {
-                    s.ConstructUsing(name => new ServiceWrapper(address, configuration));
+                    s.ConstructUsing(name => new ServiceWrapper(configuration));
                     s.WhenStarted(tc => tc.Start());
                     s.WhenStopped(tc => tc.Stop());
                 });
@@ -32,20 +31,7 @@ namespace EventStoreWinServiceWrapper
                 x.SetDisplayName("EventStoreServiceWrapper");
                 x.SetServiceName("EventStoreServiceWrapper");
             });
-
-            Console.ReadLine();
         }
 
-        private static IPAddress GetIPAddress()
-        {
-            string hostName = Dns.GetHostName();
-            return Dns.GetHostAddresses(hostName).First(address =>
-            {
-                if (address.AddressFamily != AddressFamily.InterNetwork)
-                    return false;
-
-                return !Equals(address, IPAddress.Loopback);
-            });
-        }
     }
 }
