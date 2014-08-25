@@ -27,6 +27,15 @@ namespace EventStoreWinServiceWrapper
             {
                 sb.AppendFormat("--httpprefixes \"{0}\"", instance.Addresses);
             }
+            if (!string.IsNullOrWhiteSpace(instance.ExternalIP))
+            {
+                sb.AppendFormat("--ext-ip \"{0}\"", instance.ExternalIP);                
+            }
+            if (!string.IsNullOrWhiteSpace(instance.InternalIP))
+            {
+                sb.AppendFormat("--int-ip \"{0}\"", instance.InternalIP);
+            }
+
             return sb.ToString();
         }
     }

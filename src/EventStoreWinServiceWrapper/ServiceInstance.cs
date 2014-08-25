@@ -4,6 +4,20 @@ namespace EventStoreWinServiceWrapper
 {
     public class ServiceInstance : ConfigurationElement
     {
+        [ConfigurationProperty("internalip", IsRequired = false)]
+        public string InternalIP
+        {
+            get { return (string)this["internalip"]; }
+            set { this["internalip"] = value; }
+        }
+
+        [ConfigurationProperty("externalip", IsRequired = false)]
+        public string ExternalIP
+        {
+            get { return (string)this["externalip"]; }
+            set { this["externalip"] = value; }
+        }
+
         [ConfigurationProperty("name", IsRequired = true)]
         public string Name
         {
