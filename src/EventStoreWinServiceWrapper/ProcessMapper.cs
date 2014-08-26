@@ -1,7 +1,8 @@
-using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Net;
-using System.Text;
+using System.Net.Sockets;
 
 namespace EventStoreWinServiceWrapper
 {
@@ -19,24 +20,30 @@ namespace EventStoreWinServiceWrapper
 
         private string GetProcessArguments(ServiceInstance instance)
         {
-            var sb = new StringBuilder();
-            sb.AppendFormat("--log {0} ", instance.LogPath);
-            sb.AppendFormat("--db {0} ", instance.DbPath);
-
+            var configParameters = new Dictionary<string, string>();
+            configParameters.Add("log", instance.LogPath);
+            configParameters.Add("db", instance.DbPath);
             if (!string.IsNullOrWhiteSpace(instance.Addresses))
             {
-                sb.AppendFormat("--httpprefixes \"{0}\"", instance.Addresses);
+                configParameters.Add("httpprefixes", instance.Addresses);
             }
-            if (!string.IsNullOrWhiteSpace(instance.ExternalIP))
-            {
-                sb.AppendFormat("--ext-ip \"{0}\"", instance.ExternalIP);                
-            }
-            if (!string.IsNullOrWhiteSpace(instance.InternalIP))
-            {
-                sb.AppendFormat("--int-ip \"{0}\"", instance.InternalIP);
-            }
+            var externalIp = GetIp(instance.ExternalIP);
+            configParameters.Add("ext-ip", externalIp);
+            var internalIp = GetIp(instance.InternalIP);
+            configParameters.Add("int-ip", internalIp);
 
-            return sb.ToString();
+            return configParameters.Aggregate("",
+                (acc, next) => string.Format("{0} --{1} {2}", acc, next.Key, next.Value));
+        }
+
+        private string GetIp(string externalIp)
+        {
+            if (!string.IsNullOrWhiteSpace(externalIp))
+            {
+                return externalIp;
+            }
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            return host.AddressList.First(y => y.AddressFamily == AddressFamily.InterNetwork).ToString();
         }
     }
 }
