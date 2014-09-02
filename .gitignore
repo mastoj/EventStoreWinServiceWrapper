@@ -108,3 +108,5 @@ Backup*/
 UpgradeLog*.XML
 
 src/Rapporteringsregisteret.Web/assets/less/*.css
+
+*.sln.ide
