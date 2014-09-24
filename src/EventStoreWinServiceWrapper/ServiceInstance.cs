@@ -46,11 +46,11 @@ namespace EventStoreWinServiceWrapper
             set { this["addresses"] = value; }
         }
 
-        [ConfigurationProperty("runPorjections", IsRequired = false)]
+        [ConfigurationProperty("runProjections", IsRequired = false)]
         public string RunProjections
         {
-            get { return (string)this["runPorjections"]; }
-            set { this["runPorjections"] = value; }
+            get { return (string)this["runProjections"]; }
+            set { this["runProjections"] = value; }
         }
     }
 }
