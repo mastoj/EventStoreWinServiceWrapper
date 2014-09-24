@@ -23,6 +23,7 @@ namespace EventStoreWinServiceWrapper
             var configParameters = new Dictionary<string, string>();
             configParameters.Add("log", instance.LogPath);
             configParameters.Add("db", instance.DbPath);
+            configParameters.Add("run-projections", instance.RunProjections);
             if (!string.IsNullOrWhiteSpace(instance.Addresses))
             {
                 configParameters.Add("httpprefixes", instance.Addresses);
