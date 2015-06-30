@@ -34,7 +34,7 @@ namespace EventStoreWinServiceWrapper
             configParameters.Add("int-ip", internalIp);
 
             return configParameters.Aggregate("",
-                (acc, next) => string.Format("{0} --{1} {2}", acc, next.Key, next.Value));
+                (acc, next) => string.Format("{0} --{1} \"{2}\"", acc, next.Key, next.Value));
         }
 
         private string GetIp(string externalIp)
