@@ -24,10 +24,17 @@ namespace EventStoreWinServiceWrapper
             configParameters.Add("log", instance.LogPath);
             configParameters.Add("db", instance.DbPath);
             configParameters.Add("run-projections", instance.RunProjections);
-            if (!string.IsNullOrWhiteSpace(instance.Addresses))
+
+            if (!string.IsNullOrWhiteSpace(instance.InternalAddresses))
             {
-                configParameters.Add("httpprefixes", instance.Addresses);
+                configParameters.Add("int-http-prefixes", instance.InternalAddresses);
             }
+
+            if (!string.IsNullOrWhiteSpace(instance.ExternalAddresses))
+            {
+                configParameters.Add("ext-http-prefixes", instance.ExternalAddresses);
+            }
+
             var externalIp = GetIp(instance.ExternalIP);
             configParameters.Add("ext-ip", externalIp);
             var internalIp = GetIp(instance.InternalIP);

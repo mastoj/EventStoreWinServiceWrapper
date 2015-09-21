@@ -39,11 +39,18 @@ namespace EventStoreWinServiceWrapper
             set { this["logPath"] = value; }
         }
 
-        [ConfigurationProperty("addresses", IsRequired = false)]
-        public string Addresses
+        [ConfigurationProperty("internaladdresses", IsRequired = false)]
+        public string InternalAddresses
         {
-            get { return (string)this["addresses"]; }
-            set { this["addresses"] = value; }
+            get { return (string)this["internaladdresses"]; }
+            set { this["internaladdresses"] = value; }
+        }
+
+        [ConfigurationProperty("externaladdresses", IsRequired = false)]
+        public string ExternalAddresses
+        {
+            get { return (string)this["externaladdresses"]; }
+            set { this["externaladdresses"] = value; }
         }
 
         [ConfigurationProperty("runProjections", IsRequired = false)]
