@@ -59,5 +59,34 @@ namespace EventStoreWinServiceWrapper
             get { return (string)this["runProjections"]; }
             set { this["runProjections"] = value; }
         }
+
+        [ConfigurationProperty("internalheartbeatinterval", IsRequired = false)]
+        public string InternalHeartBeatInterval
+        {
+            get { return (string)this["internalheartbeatinterval"]; }
+            set { this["internalheartbeatinterval"] = value; }
+        }
+
+        [ConfigurationProperty("internalheartbeattimeout", IsRequired = false)]
+        public string InternalHeartBeatTimeout
+        {
+            get { return (string)this["internalheartbeattimeout"]; }
+            set { this["internalheartbeattimeout"] = value; }
+        }
+
+        [ConfigurationProperty("externalheartbeatinterval", IsRequired = false)]
+        public string ExternalHeartBeatInterval
+        {
+            get { return (string)this["externalheartbeatinterval"]; }
+            set { this["externalheartbeatinterval"] = value; }
+        }
+
+        [ConfigurationProperty("externalheartbeattimeout", IsRequired = false)]
+        public string ExternalHeartBeatTimeout
+        {
+            get { return (string)this["externalheartbeattimeout"]; }
+            set { this["externalheartbeattimeout"] = value; }
+        }
+
     }
 }

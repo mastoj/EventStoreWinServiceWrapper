@@ -40,6 +40,28 @@ namespace EventStoreWinServiceWrapper
             var internalIp = GetIp(instance.InternalIP);
             configParameters.Add("int-ip", internalIp);
 
+            if (!string.IsNullOrWhiteSpace(instance.InternalHeartBeatTimeout))
+            {
+                var internalHeartBeatTimeout = instance.InternalHeartBeatTimeout;
+                configParameters.Add("int-tcp-heartbeat-timeout", internalHeartBeatTimeout);
+            }
+            if (!string.IsNullOrWhiteSpace(instance.InternalHeartBeatInterval))
+            {
+                var internalHeartBeatInterval = instance.InternalHeartBeatInterval;
+                configParameters.Add("int-tcp-heartbeat-interval", internalHeartBeatInterval);
+            }
+
+            if (!string.IsNullOrWhiteSpace(instance.ExternalHeartBeatTimeout))
+            {
+                var externalHeartBeatTimeout = instance.ExternalHeartBeatTimeout;
+                configParameters.Add("ext-tcp-heartbeat-timeout", externalHeartBeatTimeout);
+            }
+            if (!string.IsNullOrWhiteSpace(instance.ExternalHeartBeatInterval))
+            {
+                var externalHeartBeatInterval = instance.ExternalHeartBeatInterval;
+                configParameters.Add("ext-tcp-heartbeat-interval", externalHeartBeatInterval);
+            }
+
             return configParameters.Aggregate("",
                 (acc, next) => string.Format("{0} --{1} \"{2}\"", acc, next.Key, next.Value));
         }
